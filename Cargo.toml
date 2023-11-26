@@ -1,0 +1,17 @@
+[package]
+name = "timer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.4.8", features = ["derive"] }
+rodio = "0.17.3"
+rust-embed = { version = "8.0.0" }
+
+[profile.release]
+# since most of the time the program runs is spent sleeping
+# we can optimize for size instead of speed
+opt-level = "z"   # optimize for size
+lto = true        # enable link time optimization
+codegen-units = 1 # reduce number of codegen units to increase optimizations
+strip = true      # automatically strip symbols from the binary
